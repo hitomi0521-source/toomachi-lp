@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>観覧席のご予約｜とおまち 夏花火ナイト</title>
+<meta name="description" content="とおまち 夏花火ナイトの有料観覧席（¥1,500／1名・税込）のご予約ページです。前日17時までキャンセル無料。">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@700&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/reserve.css">
+<script src="js/reserve.js" defer></script>
+</head>
+<body>
+
+<svg class="svg-sprite" width="0" height="0" aria-hidden="true">
+  <defs>
+    <symbol id="icon-line" viewBox="0 0 24 24">
+      <rect width="24" height="24" rx="6" fill="#06C755"/>
+      <path d="M12 5.5c-4.1 0-7.3 2.6-7.3 5.8 0 2.9 2.5 5.3 6 5.7l-.4 2.1c-.1.4.3.7.6.5l3.3-2.6c3-.6 5.1-2.9 5.1-5.7 0-3.2-3.2-5.8-7.3-5.8z" fill="#fff"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo"><img src="images/tomorin-base.webp" width="347" height="480" alt="">とおまち 夏花火ナイト</a>
+    <a href="index.html" class="back-link">LPに戻る</a>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <p class="page-head__label">RESERVATION</p>
+    <h1 id="page-title">観覧席のご予約</h1>
+  </div>
+
+  <ol class="steps" aria-label="予約の手順">
+    <li data-step="input" aria-current="step">入力</li>
+    <li data-step="confirm">確認</li>
+    <li data-step="done">完了</li>
+  </ol>
+
+  <!-- 満席・受付終了のお知らせ（GASの残席がゼロのとき表示） -->
+  <div class="notice" id="soldout-notice" role="status" hidden>
+    <strong>有料観覧席は、予定数に達したため受付を終了しました。</strong><br>
+    観覧エリアは予約なし・入場無料でご覧いただけます。宿泊のご相談は公式LINEで受け付けています。
+  </div>
+
+  <!-- ============ STEP 1：入力 ============ -->
+  <section id="step-input" aria-labelledby="page-title">
+    <div class="tomorin">
+      <img src="images/tomorin-guide.webp" width="365" height="480" alt="">
+      <p class="tomorin__bubble">1分くらいで終わるよ。<br>キャンセルは前日17時まで無料だよ。</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card__title">ご予約内容</h2>
+      <dl>
+        <div class="summary-row"><dt>イベント</dt><dd>とおまち 夏花火ナイト</dd></div>
+        <div class="summary-row"><dt>開催日</dt><dd>8月中旬の土曜</dd></div>
+        <div class="summary-row"><dt>会場</dt><dd>とおまち川河川敷（とおまち駅から徒歩約10分）</dd></div>
+        <div class="summary-row"><dt>席種</dt><dd>有料観覧席 ¥1,500（税込）／1名・先着順</dd></div>
+      </dl>
+    </div>
+
+    <div class="alert" id="error-summary" tabindex="-1" role="alert" hidden></div>
+
+    <form id="reserve-form" novalidate>
+      <div class="card">
+        <h2 class="card__title">席の枚数</h2>
+        <div class="field">
+          <label class="field__label" for="seats">枚数 <span class="req">必須</span></label>
+          <div class="seats">
+            <select class="select" id="seats" name="seats" aria-describedby="seats-hint seats-error">
+              <option value="1">1名</option>
+              <option value="2" selected>2名</option>
+              <option value="3">3名</option>
+              <option value="4">4名</option>
+              <option value="5">5名</option>
+              <option value="6">6名</option>
+            </select>
+            <p class="total" aria-live="polite">
+              <small>合計（税込）</small>
+              <strong id="total-price">¥3,000</strong>
+            </p>
+          </div>
+          <p class="field__hint" id="seats-hint">1回のご予約で6名までです。7名以上は公式LINEでご相談ください。</p>
+          <p class="field__error" id="seats-error"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card__title">代表者さまの情報</h2>
+
+        <div class="field">
+          <label class="field__label" for="name">お名前 <span class="req">必須</span></label>
+          <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="例）佐藤 美咲" maxlength="50" aria-describedby="name-error">
+          <p class="field__error" id="name-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="kana">フリガナ <span class="req">必須</span></label>
+          <input class="input" id="kana" name="kana" type="text" autocomplete="off" placeholder="例）サトウ ミサキ" maxlength="50" aria-describedby="kana-hint kana-error">
+          <p class="field__hint" id="kana-hint">ひらがなで入力しても、カタカナに変換されます。</p>
+          <p class="field__error" id="kana-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email">メールアドレス <span class="req">必須</span></label>
+          <input class="input" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="例）misaki@example.com" maxlength="254" aria-describedby="email-hint email-error">
+          <p class="field__hint" id="email-hint">予約完了メールをお送りします。</p>
+          <p class="field__error" id="email-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email2">メールアドレス（確認用） <span class="req">必須</span></label>
+          <input class="input" id="email2" name="email2" type="email" inputmode="email" autocomplete="off" placeholder="もう一度入力してください" maxlength="254" aria-describedby="email2-error">
+          <p class="field__error" id="email2-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="tel">電話番号 <span class="req">必須</span></label>
+          <input class="input" id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="例）090-1234-5678" maxlength="20" aria-describedby="tel-hint tel-error">
+          <p class="field__hint" id="tel-hint">荒天で延期になる場合など、ご連絡が必要なときに使います。</p>
+          <p class="field__error" id="tel-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="note">ご質問・ご要望 <span class="opt">任意</span></label>
+          <textarea class="textarea" id="note" name="note" maxlength="500" placeholder="例）小さな子ども連れです。ベビーカーで行っても大丈夫ですか？" aria-describedby="note-error"></textarea>
+          <p class="field__error" id="note-error"></p>
+        </div>
+
+        <!-- 迷惑送信対策：人には見えない欄。入力があれば送信しない -->
+        <div class="hp" aria-hidden="true">
+          <label for="website">ウェブサイト</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card__title">ご確認ください</h2>
+        <ul class="policy">
+          <li>観覧席のキャンセルは、開催前日の17時まで無料です。予約完了メールへの返信、または公式LINEでご連絡ください。</li>
+          <li>小雨決行です。荒天時は翌日に延期となる場合があり、最新情報は当日公式LINEでご案内します。</li>
+          <li>お支払いは当日、観覧席受付にてお願いします。</li>
+          <li>ご入力いただいた個人情報は、本イベントのご予約・ご連絡にのみ使用します（<!-- 公開時はプライバシーポリシーのページURLに差し替え --><a href="#">個人情報の取り扱い</a>）。</li>
+        </ul>
+        <div class="field">
+          <label class="check" for="agree">
+            <input id="agree" name="agree" type="checkbox" aria-describedby="agree-error">
+            <span>上記の内容に同意します <span class="req">必須</span></span>
+          </label>
+          <p class="field__error" id="agree-error"></p>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn--seat" type="submit" id="to-confirm">入力内容を確認する</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============ STEP 2：確認 ============ -->
+  <section id="step-confirm" aria-labelledby="confirm-title" hidden>
+    <div class="card">
+      <h2 class="card__title" id="confirm-title" tabindex="-1">この内容で予約します</h2>
+      <dl class="confirm-list" id="confirm-list"></dl>
+      <p class="confirm-total"><span>合計（税込）</span><strong id="confirm-total"></strong></p>
+    </div>
+
+    <div class="alert" id="send-error" tabindex="-1" role="alert" hidden></div>
+
+    <div class="btn-row btn-row--2">
+      <button class="btn btn--ghost" type="button" id="back-to-input">修正する</button>
+      <button class="btn btn--seat" type="button" id="submit-btn">
+        <span class="btn__label">席を予約する</span>
+      </button>
+    </div>
+    <p class="btn-note">※前日17時までキャンセル無料・先着順</p>
+  </section>
+
+  <!-- ============ STEP 3：完了 ============ -->
+  <section id="step-done" aria-labelledby="done-title" hidden>
+    <div class="card done">
+      <img class="done__tomorin" src="images/tomorin-smile.webp" width="337" height="480" alt="">
+      <h2 id="done-title" tabindex="-1">ご予約ありがとう<br>ございます。<br>当日、待ってるね。</h2>
+      <p class="done__id">予約番号<strong id="done-id"></strong></p>
+      <p><span id="done-email"></span> に、予約完了メールをお送りしました。</p>
+      <p class="field__hint">メールが届かない場合は、迷惑メールフォルダもご確認ください。</p>
+
+      <div class="next-stay card">
+        <h3 class="card__title">泊まって、夜もゆっくりしませんか？</h3>
+        <p class="field__hint next-stay__text">町の宿は数に限りがあります。気になる宿があれば、公式LINEで空室・プランをご案内します。</p>
+        <a class="btn btn--line" data-line href="#">
+          <svg width="22" height="22" aria-hidden="true"><use href="#icon-line"/></svg>
+          LINEで宿を相談する
+        </a>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="index.html">LPに戻る</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>とおまち観光協会（架空）｜お問い合わせ：<a href="mailto:info@toomachi-kanko.jp">info@toomachi-kanko.jp</a>｜平日9:00〜17:00（夏季イベント期間中は土日対応あり）</p>
+  <p class="fiction-note">※制作課題として作成した架空のページです。予約内容が実際に処理されることはありません。</p>
+</footer>
+
+</body>
+</html>
