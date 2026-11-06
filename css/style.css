@@ -386,7 +386,7 @@ img.ph {
 /* 01：アーチ型を右寄せ／02：角丸を左寄せ（えのすぱ風のずらし配置） */
 .point--a .point__visual { width: 82%; margin-left: auto; }
 .point--b .point__visual { width: 88%; }
-.point--a .ph { aspect-ratio: 1 / 1; }
+.point--a .ph { aspect-ratio: 4 / 3; }
 .point--b .ph { aspect-ratio: 4 / 3; }
 .point__num {
   position: absolute;
@@ -592,11 +592,10 @@ img.ph {
 .stay__cta { margin-top: 24px; }
 .stay__tomorin { margin-bottom: 20px; }
 
-/* 6店とも同じ大きさ。アーチ型と円形を市松模様に交互に並べ、1列おきに少し下げてリズムをつける */
+/* 6店とも同じ大きさの円形（お皿の形）。1列おきに少し下げてリズムをつける */
 .eat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px 18px; }
 .eat-item { text-align: center; }
 .eat-item .ph { aspect-ratio: 1 / 1; width: 100%; margin-bottom: 8px; border-radius: 50%; }   /* 円 */
-.eat-item:nth-child(4n+1) .ph, .eat-item:nth-child(4n+4) .ph { border-radius: 50% 50% 16px 16px / 50% 50% 16px 16px; } /* アーチ */
 .eat-item:nth-child(even) { margin-top: 28px; }
 .eat-card__genre { font-size: 0.6875rem; font-weight: 700; color: var(--color-accent); }
 .eat-card__name { font-size: 0.9375rem; font-weight: 700; color: var(--color-primary); line-height: 1.5; }
@@ -781,11 +780,10 @@ img.ph {
 .shape-arch--wide { aspect-ratio: 4 / 3; border-radius: 50% 50% 16px 16px / 42% 42% 16px 16px; }
 /* 円：花火の丸 */
 .shape-circle { aspect-ratio: 1 / 1; border-radius: 50%; }
-.timeline__item .ph.shape-circle { aspect-ratio: 1 / 1; width: 82%; object-position: 28% 50%; } /* 花火を多めに。並んで座る2人も入る位置 */
+.timeline__item .ph.oneday-fireworks { object-position: 35% 50%; } /* 並んで座る2人と花火の両方が入る位置 */
 /* 角丸 */
 .shape-round { border-radius: 24px; }
 .timeline__item .ph.shape-round { aspect-ratio: 4 / 3; }
-.timeline__item .ph.shape-arch--wide { aspect-ratio: 4 / 3; }
 /* 白フチの写真（旅のアルバム風） */
 .photo-frame {
   position: relative;
@@ -887,11 +885,11 @@ img.ph {
   .js [data-shot="arch"] { -webkit-clip-path: inset(100% 0 0 0); clip-path: inset(100% 0 0 0); transform: scale(1.08); transition: clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1), transform 1.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
   .js [data-shot="arch"].is-shown { -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0); transform: none; }
   /* 19:30 円：花火が開くように中心から広がる（開いた瞬間だけ少し明るく） */
-  .js [data-shot="burst"] { -webkit-clip-path: circle(0% at 50% 50%); clip-path: circle(0% at 50% 50%); filter: brightness(1.8) saturate(1.2); transition: clip-path 1.5s cubic-bezier(0.25, 0.8, 0.3, 1), -webkit-clip-path 1.5s cubic-bezier(0.25, 0.8, 0.3, 1), filter 1.8s ease-out 0.4s; }
-  .js [data-shot="burst"].is-shown { -webkit-clip-path: circle(51% at 50% 50%); clip-path: circle(51% at 50% 50%); filter: none; }
+  .js [data-shot="burst"] { -webkit-clip-path: circle(0% at 50% 50%); clip-path: circle(0% at 50% 50%); filter: brightness(1.8) saturate(1.2); transition: clip-path 1.6s cubic-bezier(0.3, 0.7, 0.3, 1), -webkit-clip-path 1.6s cubic-bezier(0.3, 0.7, 0.3, 1), filter 1.8s ease-out 0.4s; }
+  .js [data-shot="burst"].is-shown { -webkit-clip-path: circle(75% at 50% 50%); clip-path: circle(75% at 50% 50%); filter: none; }
   /* 21:00 白フチ写真：アルバムに貼るように、傾きながらストンと置く */
-  .js [data-shot="drop"] { opacity: 0; transform: translateY(-36px) rotate(-7deg) scale(1.06); transition: opacity 0.5s ease, transform 1.1s cubic-bezier(0.34, 1.5, 0.64, 1); }
-  .js [data-shot="drop"].is-shown { opacity: 1; transform: rotate(2deg); }
+  .js [data-shot="drop"] { opacity: 0; transform: translateY(-36px) rotate(-5deg) scale(1.04); transition: opacity 0.5s ease, transform 1.1s cubic-bezier(0.34, 1.5, 0.64, 1); }
+  .js [data-shot="drop"].is-shown { opacity: 1; transform: none; }
   /* 翌朝 角丸：朝の光のように、明るさがふわっと戻る */
   .js [data-shot="light"] { opacity: 0; filter: brightness(0.35) saturate(0.4) blur(6px); transition: opacity 0.9s ease, filter 1.8s ease; }
   .js [data-shot="light"].is-shown { opacity: 1; filter: none; }
@@ -933,8 +931,7 @@ img.ph {
   .eat-grid { grid-template-columns: repeat(3, 1fr); max-width: 720px; margin-left: auto; margin-right: auto; gap: 28px 32px; }
   .eat-item:nth-child(even) { margin-top: 0; }
   .eat-item:nth-child(3n+2) { margin-top: 36px; }
-  .eat-item:nth-child(n) .ph { border-radius: 50%; }
-  .eat-item:nth-child(odd) .ph { border-radius: 50% 50% 16px 16px / 50% 50% 16px 16px; }
+
   .timeline__item .ph, .timeline__item .photo-frame { max-width: 420px; }
   .stamps, #next-summer .btn--sns { max-width: 440px; margin-left: auto; margin-right: auto; }
   .feel__collage { max-width: 560px; height: 470px; margin-left: auto; margin-right: auto; }
