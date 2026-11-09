@@ -97,11 +97,18 @@ ul, ol { padding: 0; list-style: none; }
   border: 2px solid var(--color-accent2); border-radius: var(--radius-m);
   padding: 8px 14px; font-family: var(--font-round); font-weight: 700; font-size: 0.875rem; line-height: 1.6;
 }
-.tomorin__bubble::before {
-  content: ""; position: absolute; left: -9px; bottom: 14px; width: 14px; height: 14px;
-  background: var(--color-white); border-left: 2px solid var(--color-accent2); border-bottom: 2px solid var(--color-accent2);
-  transform: rotate(45deg);
+/* 吹き出しの三角：枠線色の三角（外）＋白い三角（内）を重ね、枠線を三角の先まで1本につなげる
+   外：先端 -12px／根元は枠線に2px食い込む　内：枠線の太さ2px分だけ内側にずらし、根元で枠線を隠す */
+.tomorin__bubble::before,
+.tomorin__bubble::after {
+  content: "";
+  position: absolute;
+  width: 0; height: 0;
+  border-style: solid;
+  border-color: transparent;
 }
+.tomorin__bubble::before { left: -12px; bottom: 12px; border-width: 9px 14px 9px 0; border-right-color: var(--color-accent2); }
+.tomorin__bubble::after  { left: -8px;  bottom: 14px; border-width: 7px 11px 7px 0; border-right-color: var(--color-white); }
 
 /* フォーム */
 .field { margin-bottom: 20px; }

@@ -189,24 +189,21 @@ img.ph {
   font-weight: 700;
   line-height: 1.6;
 }
-.tomorin__bubble::before {
+/* 吹き出しの三角：枠線色の三角（外）＋白い三角（内）を重ね、枠線を三角の先まで1本につなげる
+   外：先端 -12px／根元は枠線に2px食い込む　内：枠線の太さ2px分だけ内側にずらし、根元で枠線を隠す */
+.tomorin__bubble::before,
+.tomorin__bubble::after {
   content: "";
   position: absolute;
-  left: -9px;
-  bottom: 14px;
-  width: 14px; height: 14px;
-  background: var(--color-white);
-  border-left: 2px solid var(--color-accent2);
-  border-bottom: 2px solid var(--color-accent2);
-  transform: rotate(45deg);
+  width: 0; height: 0;
+  border-style: solid;
+  border-color: transparent;
 }
+.tomorin__bubble::before { left: -12px; bottom: 12px; border-width: 9px 14px 9px 0; border-right-color: var(--color-accent2); }
+.tomorin__bubble::after  { left: -8px;  bottom: 14px; border-width: 7px 11px 7px 0; border-right-color: var(--color-white); }
 .tomorin--right { flex-direction: row-reverse; }
-.tomorin--right .tomorin__bubble::before {
-  left: auto; right: -9px;
-  border-left: none; border-bottom: none;
-  border-right: 2px solid var(--color-accent2);
-  border-top: 2px solid var(--color-accent2);
-}
+.tomorin--right .tomorin__bubble::before { left: auto; right: -12px; border-width: 9px 0 9px 14px; border-color: transparent; border-left-color: var(--color-accent2); }
+.tomorin--right .tomorin__bubble::after  { left: auto; right: -8px;  border-width: 7px 0 7px 11px; border-color: transparent; border-left-color: var(--color-white); }
 
 /* =========================================================
    5. FV（P1：375px幅で主CTAまで650px以内）
@@ -295,7 +292,8 @@ img.ph {
 /* 写真を見せる余白（ここに花火が来るイメージ） */
 .fv__gap { position: relative; height: 210px; } /* 花火（動画）を見せる余白 */
 .fv__tomorin { position: absolute; right: 0; bottom: 0; }
-.fv__tomorin .tomorin__icon { width: 64px; }
+.fv__tomorin .tomorin__icon { width: 92px; }
+.final-cta .tomorin__icon { width: 100px; }
 .fv__tomorin .tomorin__bubble { font-size: 0.8125rem; padding: 6px 12px; }
 
 .fv__title {
@@ -850,6 +848,9 @@ img.ph {
 /* FVタイトル：1文字ずつふわっと（A） */
 @keyframes charIn { from { opacity: 0; transform: translateY(0.35em); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes popIn { from { opacity: 0; transform: translateY(8px) scale(0.85); } to { opacity: 1; transform: none; } }
+@keyframes typeIn { to { opacity: 1; } }
+@keyframes talkBob { from { transform: translateY(0) scale(1, 1); } to { transform: translateY(-4px) scale(1.03, 0.97); } }
+@keyframes bubbleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 /* スタンプがポンと押される（G） */
 @keyframes stampPress {
   0% { opacity: 0; transform: scale(1.8) rotate(-18deg); }
@@ -869,8 +870,18 @@ img.ph {
   .js .fv__tomorin { opacity: 0; animation: popIn 0.6s ease-out 1.05s forwards; }
 
   /* C：吹き出しは、そのセクションが画面に入ったときにポン */
-  .js .tomorin:not(.fv__tomorin) .tomorin__bubble { opacity: 0; transform: translateY(8px) scale(0.85); transform-origin: 0 100%; transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); transition-delay: 0.25s; }
+  .js .tomorin:not(.fv__tomorin) .tomorin__bubble { opacity: 0; transform: translateY(8px) scale(0.85); transform-origin: 0 100%; transition: opacity 0.5s ease, transform 0.65s cubic-bezier(0.3, 1.5, 0.5, 1); transition-delay: 0.3s; }
   .js .tomorin.is-inview .tomorin__bubble { opacity: 1; transform: none; }
+
+  /* ①ともりんが喋る：文字を1文字ずつ打ち出す */
+  .js .tomorin__bubble .bchar { opacity: 0; }
+  .js .tomorin.is-typing .bchar { animation: typeIn 0.01s linear forwards; animation-delay: calc(var(--n) * 90ms); } /* js/main.js の TYPE_MS と合わせる */
+  /* 話している間：ともりんが小さく弾む（口を動かしているように） */
+  .tomorin.is-talking .tomorin__icon { transform-origin: 50% 100%; animation: talkBob 0.2s ease-in-out infinite alternate; }
+  /* 動くともりん（動画）は、それ自体が揺れて口を動かすので、CSSの揺れ・弾みは止める */
+  .tomorin .tomorin__icon--video, .tomorin.is-talking .tomorin__icon--video { animation: none; }
+  /* 話し終わったあと：吹き出しがふわふわ浮く */
+  .tomorin.is-typing .tomorin__bubble { animation: bubbleFloat 3.2s ease-in-out 1.2s infinite; }
 
   /* F：スクロールでふわっと（少しずつ時間差） */
   .js [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--stagger, 0) * 100ms); }
@@ -968,3 +979,4 @@ img.ph {
 /* アイコン用SVGの置き場（画面には出さない） */
 .svg-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .fiction-note { margin-top: 20px; font-size: 0.6875rem; line-height: 1.7; color: #BFB8A8; }
+.tomorin picture { display: block; flex-shrink: 0; line-height: 0; }

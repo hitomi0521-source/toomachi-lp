@@ -105,11 +105,44 @@
     }, { rootMargin: '0px 0px -8% 0px' });
     targets.forEach((el) => revealIO.observe(el));
 
-    /* C：ともりんの吹き出し／G：スタンプ ─ 画面に入ったら1回だけ */
+    /* C：ともりんが喋る ─ 吹き出しの文字を1文字ずつ打ち出し、その間ともりんが話すように弾む */
+    const TYPE_MS = 90; // 1文字あたりの時間（人が話す速さに近い、1秒に約11文字）
+    document.querySelectorAll('.tomorin__bubble').forEach((bubble) => {
+      bubble.setAttribute('aria-label', bubble.textContent.trim()); // 読み上げは文章としてまとめて
+      let n = 0;
+      [...bubble.childNodes].forEach((node) => {
+        if (node.nodeType !== Node.TEXT_NODE) return; // <br> はそのまま
+        const frag = document.createDocumentFragment();
+        [...node.textContent].forEach((ch) => {
+          const span = document.createElement('span');
+          span.className = 'bchar';
+          span.setAttribute('aria-hidden', 'true');
+          span.style.setProperty('--n', n++);
+          span.textContent = ch;
+          frag.append(span);
+        });
+        node.replaceWith(frag);
+      });
+      bubble.dataset.chars = n;
+    });
+    const talk = (tomorin, startDelay) => {
+      const bubble = tomorin.querySelector('.tomorin__bubble');
+      if (!bubble) return;
+      const total = Number(bubble.dataset.chars) * TYPE_MS;
+      setTimeout(() => {
+        tomorin.classList.add('is-typing', 'is-talking');
+        setTimeout(() => tomorin.classList.remove('is-talking'), total + 150);
+      }, startDelay);
+    };
+    const fvTomorin = document.querySelector('.fv__tomorin');
+    if (fvTomorin) talk(fvTomorin, 1500); // タイトルが出たあとに話し始める
+
+    /* 吹き出し・スタンプ ─ 画面に入ったら1回だけ */
     const onceIO = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
         e.target.classList.add('is-inview');
+        if (e.target.classList.contains('tomorin')) talk(e.target, 700); // 吹き出しが出てから話し始める
         onceIO.unobserve(e.target);
       });
     }, { rootMargin: '0px 0px -15% 0px' });

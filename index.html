@@ -77,7 +77,11 @@
 
         <div class="fv__gap">
           <div class="tomorin tomorin--right fv__tomorin">
-            <img class="tomorin__icon" src="images/tomorin-smile.webp" width="337" height="480" alt="" decoding="async">
+            <!-- 動くともりん（「視差効果を減らす」設定の人には静止画） -->
+            <picture>
+              <source media="(prefers-reduced-motion: no-preference)" srcset="images/tomorin-fv-anim.webp" width="240" height="316">
+              <img class="tomorin__icon tomorin__icon--video" src="images/tomorin-smile.webp" width="337" height="480" alt="" decoding="async">
+            </picture>
             <p class="tomorin__bubble">気合いは、いらないよ〜。</p>
           </div>
         </div>
@@ -445,7 +449,10 @@
       <h2 class="section-title" id="final-title">今年の夏は、とおまちで<br>ふらっと花火を。</h2>
       <p class="final-cta__lead">予約なしでも楽しめます。<br>ゆったり見るなら、観覧席の事前予約がおすすめです。</p>
       <div class="tomorin">
-        <img class="tomorin__icon" src="images/tomorin-base.webp" width="347" height="480" alt="" decoding="async">
+        <picture>
+          <source media="(prefers-reduced-motion: no-preference)" srcset="images/tomorin-end-anim.webp" width="240" height="308">
+          <img class="tomorin__icon tomorin__icon--video" src="images/tomorin-guide.webp" width="365" height="480" alt="" loading="lazy" decoding="async">
+        </picture>
         <p class="tomorin__bubble">気が向いたら、待ってるね。</p>
       </div>
       <div class="cta-group">
