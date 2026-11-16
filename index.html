@@ -9,10 +9,16 @@
 <meta name="description" content="今年の夏、まだ予定決まってない人へ。とおまち川河川敷の「とおまち 夏花火ナイト」は入場無料・駅から徒歩約10分。ゆったり見るなら有料観覧席（¥1,500・前日17時までキャンセル無料）を。町の宿やごはん処もご紹介します。">
 <!-- 正規URL -->
 <link rel="canonical" href="https://hitomi0521-source.github.io/toomachi-lp/">
+<!-- 日本語版・英語版を互いに関連づける -->
+<link rel="alternate" hreflang="ja" href="https://hitomi0521-source.github.io/toomachi-lp/">
+<link rel="alternate" hreflang="en" href="https://hitomi0521-source.github.io/toomachi-lp/en/">
+<link rel="alternate" hreflang="x-default" href="https://hitomi0521-source.github.io/toomachi-lp/">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <!-- OGP（公開URLに合わせて設定済み） -->
 <meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:title" content="とおまち 夏花火ナイト｜ふらっと寄れる、夏のいちばん。">
 <meta property="og:description" content="今年の夏、まだ予定決まってない人へ。とおまち川河川敷の、ゆったり見られる夏花火。入場無料・観覧席¥1,500から。">
 <meta property="og:url" content="https://hitomi0521-source.github.io/toomachi-lp/">
@@ -65,6 +71,11 @@
       <video class="fv__video" muted loop playsinline preload="none" aria-hidden="true"
              data-src-sp="videos/fv-sp.mp4" data-src-pc="videos/fv-pc.mp4"></video>
     </div>
+    <!-- 言語切替：見ているセクションの英語版へ移動（js/main.js でリンク先の # を更新） -->
+    <nav class="lang-switch" aria-label="言語">
+      <span class="lang-switch__item is-current" aria-current="true" lang="ja">日本語</span>
+      <a class="lang-switch__item" href="en/" hreflang="en" lang="en" data-lang-link>English</a>
+    </nav>
     <button class="fv__motion" type="button" aria-pressed="false" hidden>
       <span class="visually-hidden">背景の動画を一時停止</span>
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" class="icon-pause"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
@@ -174,7 +185,7 @@
         <div class="voice-bubble__avatar" aria-hidden="true">27歳</div>
         <div class="voice-bubble__body">
           <blockquote class="voice-bubble__text">ここは思ったよりゆったり見られて、ふらっと来てよかった。</blockquote>
-          <figcaption class="voice-bubble__meta">27歳 女性／会社員（隣県在住）</figcaption>
+          <figcaption class="voice-bubble__meta">27歳 女性／会社員（隣県在住）　※個人の感想です（架空の例）</figcaption>
         </div>
       </figure>
     </div>
@@ -186,7 +197,9 @@
       <p class="section-label">#EVENT</p>
       <h2 class="section-title" id="event-title">開催概要と、観覧のしかた</h2>
       <dl class="event__table">
-        <div class="event__row"><dt>開催日</dt><dd>8月中旬の土曜（年1回）</dd></div>
+        <div class="event__row"><dt>開催日</dt><dd>8月中旬の土曜（年1回）<br><small>※開催日は毎年更新します</small></dd></div>
+        <div class="event__row"><dt>時間</dt><dd>19:30〜20:30（予定）</dd></div>
+        <div class="event__row"><dt>雨天時</dt><dd>小雨決行。荒天時は翌日（日曜）同じ時間に延期</dd></div>
         <div class="event__row"><dt>会場</dt><dd>とおまち川河川敷</dd></div>
         <div class="event__row"><dt>打ち上げ</dt><dd>約3,000発</dd></div>
         <div class="event__row"><dt>アクセス</dt><dd>とおまち駅から徒歩約10分</dd></div>
@@ -217,6 +230,19 @@
           <p class="btn-note">※前日17時までキャンセル無料・先着順</p>
         </article>
       </div>
+
+      <!-- 観覧席のご予約条件（19-1）：長文にならないよう、開いて読む形に -->
+      <details class="terms">
+        <summary class="terms__summary">観覧席のご予約条件（お支払い・キャンセル・雨天時）</summary>
+        <dl class="terms__list">
+          <div class="terms__row"><dt>料金</dt><dd>¥1,500（税込）／1名。席数に限りがあり、先着順で受け付けます（1回のご予約は6名まで）</dd></div>
+          <div class="terms__row"><dt>お申し込み</dt><dd>予約ページで入力 → 確認画面で内容を確認 → 送信。予約番号を記載した完了メールをお送りします</dd></div>
+          <div class="terms__row"><dt>お支払い</dt><dd>当日、観覧席受付にて（現金・電子マネー）</dd></div>
+          <div class="terms__row"><dt>キャンセル</dt><dd>開催前日の17時まで無料。完了メールへの返信、または公式LINEでご連絡ください。17時以降も、当日払いのためキャンセル料はかかりませんが、必ずご連絡をお願いします</dd></div>
+          <div class="terms__row"><dt>雨天・荒天時</dt><dd>小雨決行。荒天で翌日に延期となった場合、ご予約はそのまま延期日に振り替えます。延期日も中止となった場合はご予約を取り消し、料金は発生しません</dd></div>
+          <div class="terms__row"><dt>販売主体</dt><dd>とおまち観光協会（架空）｜<a href="mailto:info@toomachi-kanko.jp">info@toomachi-kanko.jp</a></dd></div>
+        </dl>
+      </details>
 
       <div class="tomorin event__tomorin">
         <img class="tomorin__icon" src="images/tomorin-guide.webp" width="365" height="480" alt="" decoding="async">
@@ -342,7 +368,7 @@
         </article>
       </div>
 
-      <p class="stay__price">1泊2食付き ¥9,000台〜<br><small>（目安・施設やプランにより異なります）</small></p>
+      <p class="stay__price">1泊2食付き ¥9,000台〜（税込・目安）<br><small>施設やプランにより異なります</small></p>
 
       <div class="stay__cta">
         <a class="btn btn--line" data-line href="#">
@@ -352,7 +378,8 @@
         <p class="btn-note">
           ※相談だけでも気軽にどうぞ。空室・プランはスタッフが個別にご案内<br>
           宿名を送るだけでOK。営業時間内に個別にご案内します（夏季は土日も対応）<br>
-          ※ご希望に添えない場合もあります
+          ※宿のご紹介・ご相談の窓口です。空室や予約の成立をお約束するものではありません<br>
+          ※LINEを使っていない方は、メール（<a href="mailto:info@toomachi-kanko.jp">info@toomachi-kanko.jp</a>）でもご相談いただけます
         </p>
       </div>
     </div>
@@ -379,6 +406,7 @@
     <div class="container">
       <p class="section-label">#VOICE</p>
       <h2 class="section-title" id="voice-title">来場した人の声</h2>
+      <p class="voice-note">※個人の感想です（架空の例）</p>
       <div class="voices" tabindex="0" aria-label="来場者の声（横にスクロールできます）">
         <figure class="voice-card">
           <blockquote class="voice-card__text">正直、花火大会ってどこも混んでて疲れるイメージだったんですが、ここは思ったよりゆったり見られて、ふらっと来てよかったです。</blockquote>
@@ -514,7 +542,19 @@
       <div class="company__row"><dt>お問い合わせ</dt><dd><a href="mailto:info@toomachi-kanko.jp">info@toomachi-kanko.jp</a></dd></div>
       <div class="company__row"><dt>営業時間</dt><dd>平日9:00〜17:00（夏季イベント期間中は土日対応あり）</dd></div>
     </dl>
-    <p class="fiction-note">※このページは制作課題として作成した架空のLPです。イベント・団体・宿泊施設・飲食店・来場者の声は、すべて架空のものです。</p>
+    <p class="site-footer__title site-footer__title--sub">有料観覧席の販売条件</p>
+    <dl class="company">
+      <div class="company__row"><dt>販売価格</dt><dd>¥1,500（税込）／1名。席数限定・先着順（1回のご予約は6名まで）</dd></div>
+      <div class="company__row"><dt>お申し込み</dt><dd>予約ページで入力・内容確認のうえ送信。完了メールで予約番号をお知らせします</dd></div>
+      <div class="company__row"><dt>お支払い</dt><dd>当日、観覧席受付にて（現金・電子マネー）</dd></div>
+      <div class="company__row"><dt>キャンセル</dt><dd>開催前日17時まで無料。以降も当日払いのためキャンセル料はかかりませんが、必ずご連絡ください</dd></div>
+      <div class="company__row"><dt>中止・延期</dt><dd>荒天で翌日に延期の場合は予約を振り替え。延期日も中止の場合は取り消し（料金は発生しません）</dd></div>
+    </dl>
+    <ul class="footer-links">
+      <li><a href="privacy.html">個人情報の取り扱い（プライバシーポリシー）</a></li>
+      <li><a href="en/" hreflang="en" lang="en" data-lang-link>English</a></li>
+    </ul>
+    <p class="fiction-note">※このページは制作課題として作成した架空のLPです。イベント・団体・宿泊施設・飲食店・来場者の声は、すべて架空のものです。宿泊の取り次ぎなどを実際に行う場合は、旅行業法などについて専門家への確認が必要です。</p>
     <p class="copyright"><small>&copy; とおまち観光協会（架空）</small></p>
   </div>
 </footer>
