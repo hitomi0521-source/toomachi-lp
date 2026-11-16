@@ -229,7 +229,7 @@ img.ph {
 .fv__video.is-ready { opacity: 1; }
 /* 動画の一時停止ボタン（自動で動く映像には止める手段を用意する） */
 .fv__motion {
-  position: absolute; top: 12px; right: 12px; z-index: 2;
+  position: absolute; top: 62px; right: 12px; z-index: 2; /* 言語切替の下 */
   width: 44px; height: 44px; border-radius: 50%;
   display: grid; place-items: center; cursor: pointer;
   color: var(--color-secondary); background: rgba(27, 42, 74, 0.55);
@@ -980,3 +980,66 @@ img.ph {
 .svg-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .fiction-note { margin-top: 20px; font-size: 0.6875rem; line-height: 1.7; color: #BFB8A8; }
 .tomorin picture { display: block; flex-shrink: 0; line-height: 0; }
+
+/* =========================================================
+   19. 2言語対応・表記（課題18・19章）
+   ========================================================= */
+/* 言語切替（FV右上） */
+.lang-switch {
+  position: absolute; top: 12px; right: 12px; z-index: 3;
+  display: flex; align-items: center;
+  background: rgba(27, 42, 74, 0.6);
+  border: 1px solid rgba(255, 246, 229, 0.4);
+  border-radius: 999px; padding: 3px;
+  font-family: var(--font-round); font-weight: 700; font-size: 0.8125rem; line-height: 1;
+}
+.lang-switch__item {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 36px; padding: 0 14px; border-radius: 999px;
+  color: var(--color-secondary); text-decoration: none;
+}
+.lang-switch__item.is-current { background: var(--color-secondary); color: var(--color-primary); }
+a.lang-switch__item:hover { background: rgba(255, 246, 229, 0.15); }
+.lang-switch__item:focus-visible { outline: 3px solid var(--color-accent2); outline-offset: 2px; }
+
+/* 開催概要の小さな注記 */
+.event__row small { font-size: 0.75rem; color: var(--color-muted); }
+
+/* 観覧席のご予約条件（開いて読む） */
+.terms {
+  margin-top: 20px; background: var(--color-white);
+  border: 1px solid var(--color-border); border-radius: var(--radius-m);
+}
+.terms__summary {
+  cursor: pointer; list-style: none; position: relative;
+  padding: 14px 48px 14px 16px; min-height: 48px;
+  font-weight: 700; font-size: 0.9375rem; color: var(--color-primary); line-height: 1.5;
+}
+.terms__summary::-webkit-details-marker { display: none; }
+.terms__summary::after {
+  content: "＋"; position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  width: 22px; height: 22px; border-radius: 50%; background: var(--color-secondary);
+  display: grid; place-items: center; font-size: 0.75rem; color: var(--color-primary);
+}
+.terms[open] .terms__summary::after { content: "−"; }
+.terms__summary:focus-visible { outline: 3px solid var(--color-accent2); outline-offset: -3px; border-radius: var(--radius-m); }
+.terms__list { padding: 0 16px 12px; }
+.terms__row { display: grid; grid-template-columns: 6.5em 1fr; gap: 8px; padding: 10px 0; border-top: 1px dashed var(--color-border); font-size: 0.875rem; line-height: 1.7; }
+.terms__row dt { font-weight: 700; color: var(--color-primary); }
+.terms__row a { color: var(--color-primary); }
+
+/* 来場者の声の注記 */
+.voice-note { margin: -12px 0 16px; font-size: 0.75rem; color: var(--color-muted); }
+
+/* LINE相談の注記内のリンク */
+.stay__cta .btn-note a { color: var(--color-primary); }
+
+/* フッター：販売条件・リンク */
+.site-footer__title--sub { margin-top: 28px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 20px; }
+.footer-links a { color: var(--color-secondary); text-underline-offset: 3px; }
+
+/* スマホ：英字ラベルが言語切替に重ならないよう、手前で折り返す */
+@media (max-width: 639px) {
+  .fv__en { max-width: calc(100% - 170px); line-height: 1.35; }
+}

@@ -176,6 +176,23 @@
     }
   })();
 
+  /* ---------- 言語切替：今見ているセクションの英語版へ移動する ----------
+     英語版も同じ id のセクションを持つので、リンク先の # を見ているセクションに合わせて更新 */
+  (() => {
+    const links = document.querySelectorAll('[data-lang-link]');
+    const sections = document.querySelectorAll('main > section[id]');
+    if (!links.length || !sections.length || !('IntersectionObserver' in window)) return;
+    const base = links[0].getAttribute('href').split('#')[0];
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const hash = e.target.id === 'fv' ? '' : '#' + e.target.id;
+        links.forEach((a) => { a.setAttribute('href', base + hash); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' }); // 画面の真ん中あたりにあるセクションを「見ている」とみなす
+    sections.forEach((s) => io.observe(s));
+  })();
+
   /* ---------- FAQアコーディオン ---------- */
   document.querySelectorAll('.faq__q').forEach((btn) => {
     btn.addEventListener('click', () => {
