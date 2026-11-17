@@ -4,12 +4,13 @@
 (() => {
   /* ---------- LINEリンク（P7） ---------- */
   const LINE_ID = '{LINE_ID}'; // 公開時に公式LINEのIDへ差し替え
+  const isEn = document.documentElement.lang === 'en'; // 英語版（en/index.html）でも同じファイルを使う
 
   document.querySelectorAll('[data-line]').forEach((el) => {
     el.href = `https://line.me/R/ti/p/${LINE_ID}`;
   });
   document.querySelectorAll('[data-facility]').forEach((el) => {
-    const text = `${el.dataset.facility}について相談したいです`;
+    const text = isEn ? `Hi, I'd like to ask about ${el.dataset.facility}.` : `${el.dataset.facility}について相談したいです`;
     el.href = `https://line.me/R/oaMessage/${LINE_ID}/?text=${encodeURIComponent(text)}`;
   });
 
@@ -41,7 +42,9 @@
       userPaused = !video.paused;
       if (userPaused) video.pause(); else video.play().catch(() => {});
       btn.setAttribute('aria-pressed', String(userPaused));
-      btn.querySelector('.visually-hidden').textContent = userPaused ? '背景の動画を再生' : '背景の動画を一時停止';
+      btn.querySelector('.visually-hidden').textContent = isEn
+        ? (userPaused ? 'Play background video' : 'Pause background video')
+        : (userPaused ? '背景の動画を再生' : '背景の動画を一時停止');
     });
 
     if ('IntersectionObserver' in window) {
@@ -106,7 +109,8 @@
     targets.forEach((el) => revealIO.observe(el));
 
     /* C：ともりんが喋る ─ 吹き出しの文字を1文字ずつ打ち出し、その間ともりんが話すように弾む */
-    const TYPE_MS = 90; // 1文字あたりの時間（人が話す速さに近い、1秒に約11文字）
+    const TYPE_MS = isEn ? 55 : 90; // 1文字あたりの時間（日本語は1秒に約11文字。英語は文字数が多いので少し速く）
+    document.documentElement.style.setProperty('--type-ms', TYPE_MS + 'ms');
     document.querySelectorAll('.tomorin__bubble').forEach((bubble) => {
       bubble.setAttribute('aria-label', bubble.textContent.trim()); // 読み上げは文章としてまとめて
       let n = 0;

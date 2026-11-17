@@ -99,7 +99,7 @@ function doPost(e) {
     row[COL['枚数']] = d.seats;
     row[COL['合計金額']] = d.seats * CONFIG.PRICE;
     row[COL['お名前']] = safe_(d.name);
-    row[COL['フリガナ']] = safe_(d.kana);
+    row[COL['フリガナ']] = d.lang === 'en' ? '（英語版から予約）' : safe_(d.kana);
     row[COL['メールアドレス']] = safe_(d.email);
     row[COL['電話番号']] = "'" + d.tel; // 先頭の0が消えないよう文字列として保存
     row[COL['ご質問・ご要望']] = safe_(d.note);
@@ -132,19 +132,22 @@ function doPost(e) {
 function validate_(raw) {
   const errors = [];
   const str = (v) => (v == null ? '' : String(v)).trim();
+  const lang = raw.lang === 'en' ? 'en' : 'ja'; // 英語版の予約ページからは lang: 'en' が届く
   const d = {
+    lang: lang,
     seats: Number(raw.seats),
     name: str(raw.name).slice(0, 50),
     kana: str(raw.kana).slice(0, 50),
     email: str(raw.email).slice(0, 254),
-    tel: str(raw.tel).replace(/[^\d-]/g, '').slice(0, 20),
+    tel: str(raw.tel).replace(lang === 'en' ? /[^\d+\-]/g : /[^\d-]/g, '').slice(0, 20),
     note: str(raw.note).slice(0, 500),
   };
   if (!Number.isInteger(d.seats) || d.seats < 1 || d.seats > CONFIG.MAX_PER_BOOKING) errors.push('seats');
   if (!d.name) errors.push('name');
-  if (!/^[ァ-ヶー\s]+$/.test(d.kana)) errors.push('kana');
+  if (lang === 'ja' && !/^[ァ-ヶー\s]+$/.test(d.kana)) errors.push('kana'); // 英語版はフリガナなし
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) errors.push('email');
-  if (!/^0\d{9,10}$/.test(d.tel.replace(/-/g, ''))) errors.push('tel');
+  if (lang === 'ja' && !/^0\d{9,10}$/.test(d.tel.replace(/-/g, ''))) errors.push('tel');
+  if (lang === 'en' && !/^\+?\d{7,15}$/.test(d.tel.replace(/-/g, ''))) errors.push('tel'); // 海外の番号も受け付ける
   return { errors: errors, data: d };
 }
 
@@ -152,6 +155,7 @@ function validate_(raw) {
    メール
    ========================================================= */
 function sendConfirmation_(id, d) {
+  if (d.lang === 'en') return sendConfirmationEn_(id, d);
   const total = (d.seats * CONFIG.PRICE).toLocaleString('ja-JP');
   const body = [
     d.name + ' さま',
@@ -200,6 +204,55 @@ function sendConfirmation_(id, d) {
   MailApp.sendEmail(d.email, '【とおまち 夏花火ナイト】観覧席のご予約を承りました（予約番号 ' + id + '）', body, options);
 }
 
+/* 英語版の予約完了メール（内容は日本語版と同じ。解釈に差が出た場合は日本語版を正とする） */
+function sendConfirmationEn_(id, d) {
+  const total = (d.seats * CONFIG.PRICE).toLocaleString('en-US');
+  const body = [
+    'Dear ' + d.name + ',',
+    '',
+    'Thank you for reserving seats for Toomachi Summer Fireworks Night.',
+    'Your reservation is confirmed as follows.',
+    '',
+    '------------------------------',
+    'Reservation No.: ' + id,
+    'Event: Toomachi Summer Fireworks Night',
+    'Date & time: A Saturday in mid-August, 19:30-20:30 (planned)',
+    'Venue: Toomachi Riverbank (about a 10-minute walk from Toomachi Station)',
+    'Seat type: Reserved seating',
+    'Number of people: ' + d.seats,
+    'Total: JPY ' + total + ' (tax included)',
+    'Payment: On the day, at the seating reception (cash or e-money)',
+    '------------------------------',
+    '',
+    'On the day, please show this reservation number at the seating reception.',
+    '',
+    '[Cancellation]',
+    'Free of charge until 17:00 the day before the event.',
+    'Please reply to this email or contact us on our official LINE account.',
+    'After 17:00 there is still no fee, as payment is made on the day, but please let us know.',
+    '',
+    '[Rain or bad weather]',
+    'The event goes ahead in light rain. In severe weather it may be postponed to the next day (Sunday), same time.',
+    'Your reservation will move to the new date automatically. If the new date is also cancelled, your reservation will be cancelled and nothing will be charged.',
+    'Updates will be posted on our official LINE account on the day.',
+    '',
+    'Questions about accommodation are welcome in English by email or LINE.',
+    CONFIG.LINE_URL,
+    '',
+    'No need to try hard. Just drop by and enjoy the evening.',
+    'We look forward to seeing you!',
+    '',
+    '------------------------------',
+    'Toomachi Tourism Association (fictional)',
+    'Contact: ' + CONFIG.CONTACT_EMAIL,
+    'Weekdays 9:00-17:00 (also weekends during the summer event period)',
+    'In case of any discrepancy, the Japanese version prevails.',
+  ].join('\n');
+  const options = { name: 'Toomachi Tourism Association' };
+  if (CONFIG.REPLY_TO) options.replyTo = CONFIG.REPLY_TO;
+  MailApp.sendEmail(d.email, '[Toomachi Summer Fireworks Night] Reservation confirmed (No. ' + id + ')', body, options);
+}
+
 function notifyAdmin_(id, d) {
   const remaining = CONFIG.CAPACITY - countReservedSeats_(getSheet_());
   const body = [
@@ -207,7 +260,7 @@ function notifyAdmin_(id, d) {
     '',
     '予約番号：' + id,
     '枚数　　：' + d.seats + '名（¥' + (d.seats * CONFIG.PRICE).toLocaleString('ja-JP') + '）',
-    'お名前　：' + d.name + '（' + d.kana + '）',
+    'お名前　：' + d.name + (d.lang === 'en' ? '（英語版から予約）' : '（' + d.kana + '）'),
     'メール　：' + d.email,
     '電話番号：' + d.tel,
     'ご要望　：' + (d.note || 'なし'),

@@ -1,0 +1,20 @@
+/* 英語版の予約ページ・プライバシーポリシー：書体と英語で長くなる所だけ上書き */
+:root {
+  --font-base: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-round: "Nunito", system-ui, sans-serif;
+}
+body { font-family: var(--font-base); line-height: 1.65; }
+.logo { font-family: var(--font-heading); letter-spacing: 0; }
+.summary-row { grid-template-columns: 6.5em 1fr; }
+.confirm-list .summary-row { grid-template-columns: 8em 1fr; }
+.policy-list .summary-row { grid-template-columns: 9.5em 1fr; }
+.page-head h1 { letter-spacing: 0; }
+.tomorin__bubble, .btn { font-family: var(--font-round); font-weight: 800; letter-spacing: 0; }
+.field__label, .card__title { letter-spacing: 0; }
+@media (max-width: 420px) {
+  .logo { font-size: 0.8125rem; }
+  .summary-row { grid-template-columns: 1fr; gap: 0; }
+  .confirm-list .summary-row { grid-template-columns: 1fr; gap: 0; }
+  .policy-list .summary-row { grid-template-columns: 1fr; gap: 2px; }
+}

@@ -875,7 +875,7 @@ img.ph {
 
   /* ①ともりんが喋る：文字を1文字ずつ打ち出す */
   .js .tomorin__bubble .bchar { opacity: 0; }
-  .js .tomorin.is-typing .bchar { animation: typeIn 0.01s linear forwards; animation-delay: calc(var(--n) * 90ms); } /* js/main.js の TYPE_MS と合わせる */
+  .js .tomorin.is-typing .bchar { animation: typeIn 0.01s linear forwards; animation-delay: calc(var(--n) * var(--type-ms, 90ms)); } /* js/main.js の TYPE_MS から設定 */
   /* 話している間：ともりんが小さく弾む（口を動かしているように） */
   .tomorin.is-talking .tomorin__icon { transform-origin: 50% 100%; animation: talkBob 0.2s ease-in-out infinite alternate; }
   /* 動くともりん（動画）は、それ自体が揺れて口を動かすので、CSSの揺れ・弾みは止める */

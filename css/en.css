@@ -1,0 +1,74 @@
+/* =========================================================
+   英語版（en/）だけの上書き
+   style.css をそのまま使い、書体と「英語で長くなる所」だけ調整する
+   ========================================================= */
+
+/* 書体：見出しは Fraunces（やわらかいセリフ体＝日本語版の Kaisei Decol の役）、
+   本文・吹き出し・ボタンは Nunito（丸みのあるサンセリフ＝Zen Maru Gothic の役） */
+:root {
+  --font-base: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-round: "Nunito", system-ui, sans-serif;
+}
+body { line-height: 1.65; }
+.btn, .tomorin__bubble, .fv__sub, .badge, .plan__tag { font-weight: 800; }
+
+/* 日本語のイベント名（飾り）だけは日本語の書体で */
+.fv__en {
+  font-family: "Kaisei Decol", "Hiragino Mincho ProN", serif;
+  font-size: 0.8125rem; letter-spacing: 0.16em;
+}
+
+/* FVのイベント名：英語は横に長いので、サイズを落として2行に */
+.fv__name { font-size: 1.5rem; letter-spacing: 0.02em; font-variation-settings: "SOFT" 100; }
+.fv__name-main {
+  font-size: 2.875rem; line-height: 1; letter-spacing: -0.01em; margin-top: 4px;
+  max-width: 7.5em; /* 「Summer / Fireworks Night」で折り返す */
+}
+.fv__name-night { font-size: 1.5rem; letter-spacing: 0.04em; margin-left: 0; }
+@media (max-width: 1023px) { .fv__gap { height: 196px; } }
+.fv__title { font-size: 1.375rem; line-height: 1.3; letter-spacing: 0; }
+.fv__sub { font-size: 0.9375rem; line-height: 1.4; }
+.badge { font-size: 0.75rem; line-height: 1.35; }
+.fv-info__item strong { font-size: 0.6875rem; letter-spacing: 0; }
+.btn-note { line-height: 1.5; }
+.btn-note a { color: inherit; }
+
+/* 見出しは英語の字間に（日本語用に広げた字間を戻す） */
+.section-title { letter-spacing: 0; line-height: 1.3; }
+.section-label { letter-spacing: 0.12em; }
+.tomorin__bubble { letter-spacing: 0; }
+
+/* 表の見出し列：英語は語が長いので少し広く */
+.event__row dt, .terms__row dt, .company__row dt { overflow-wrap: break-word; hyphens: auto; }
+
+/* #FEEL のラベル：英語は縦書きにせず、横書きの札にする */
+.v-label {
+  writing-mode: horizontal-tb;
+  font-size: 0.875rem; line-height: 1.9; letter-spacing: 0.02em;
+}
+.v-label span { padding: 2px 8px; }
+.feel__photo--a .v-label { right: -8px; top: 14px; text-align: right; }
+.feel__photo--b .v-label { left: -10px; bottom: 14px; }
+
+/* スタンプ帳：英語は2語になるので、小さめの字で中央に */
+.stamp { font-size: 0.8125rem; line-height: 1.2; padding: 6px; }
+
+/* 時刻欄の「Next morning」 */
+.timeline__time { line-height: 1.2; }
+
+/* 追従バーのボタン */
+.sticky-bar .btn { font-size: 0.9375rem; }
+
+@media (min-width: 640px) {
+  .fv__name { font-size: 1.875rem; }
+  .fv__name-main { font-size: 3.75rem; }
+  .fv__name-night { font-size: 1.875rem; }
+  .fv__title { font-size: 1.75rem; }
+}
+
+@media (min-width: 1024px) {
+  .fv__name { font-size: 2rem; }
+  .fv__name-main { font-size: 4.25rem; max-width: 7.5em; }
+  .fv__name-night { font-size: 2rem; }
+}

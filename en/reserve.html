@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reserve a Seat | Toomachi Summer Fireworks Night</title>
+<meta name="description" content="Reserve a seat for Toomachi Summer Fireworks Night (¥1,500 per person, tax included). Free cancellation until 17:00 the day before.">
+<meta name="robots" content="noindex">
+<link rel="alternate" hreflang="ja" href="https://hitomi0521-source.github.io/toomachi-lp/reserve.html">
+<link rel="alternate" hreflang="en" href="https://hitomi0521-source.github.io/toomachi-lp/en/reserve.html">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/reserve.css">
+<link rel="stylesheet" href="../css/reserve-en.css">
+<script src="../js/reserve-en.js" defer></script>
+</head>
+<body>
+
+<svg class="svg-sprite" width="0" height="0" aria-hidden="true">
+  <defs>
+    <symbol id="icon-line" viewBox="0 0 24 24">
+      <rect width="24" height="24" rx="6" fill="#06C755"/>
+      <path d="M12 5.5c-4.1 0-7.3 2.6-7.3 5.8 0 2.9 2.5 5.3 6 5.7l-.4 2.1c-.1.4.3.7.6.5l3.3-2.6c3-.6 5.1-2.9 5.1-5.7 0-3.2-3.2-5.8-7.3-5.8z" fill="#fff"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="container">
+    <a href="./" class="logo"><img src="../images/tomorin-base.webp" width="347" height="480" alt="">Toomachi Fireworks Night</a>
+    <div class="header-nav">
+      <a href="../reserve.html" class="back-link" hreflang="ja" lang="ja">日本語</a>
+      <a href="./" class="back-link">Back to top</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <p class="page-head__label">RESERVATION</p>
+    <h1 id="page-title">Reserve a seat</h1>
+  </div>
+
+  <ol class="steps" aria-label="Booking steps">
+    <li data-step="input" aria-current="step">Details</li>
+    <li data-step="confirm">Confirm</li>
+    <li data-step="done">Done</li>
+  </ol>
+
+  <!-- 満席・受付終了のお知らせ -->
+  <div class="notice" id="soldout-notice" role="status" hidden>
+    <strong>Reserved seats are now fully booked.</strong><br>
+    You can still watch from the free area without booking. For questions about stays, contact us on LINE or by email.
+  </div>
+
+  <!-- ============ STEP 1 ============ -->
+  <section id="step-input" aria-labelledby="page-title">
+    <div class="tomorin">
+      <img src="../images/tomorin-guide.webp" width="365" height="480" alt="">
+      <p class="tomorin__bubble">It only takes about a minute~<br>Free cancellation until 17:00 the day before.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card__title">Your booking</h2>
+      <dl>
+        <div class="summary-row"><dt>Event</dt><dd>Toomachi Summer Fireworks Night</dd></div>
+        <div class="summary-row"><dt>Date</dt><dd>A Saturday in mid-August, 19:30–20:30 (planned)</dd></div>
+        <div class="summary-row"><dt>Venue</dt><dd>Toomachi Riverbank (about a 10-minute walk from Toomachi Station)</dd></div>
+        <div class="summary-row"><dt>Seat type</dt><dd>Reserved seating ¥1,500 (tax incl.) per person, first come, first served</dd></div>
+      </dl>
+    </div>
+
+    <div class="alert" id="error-summary" tabindex="-1" role="alert" hidden></div>
+
+    <form id="reserve-form" novalidate>
+      <div class="card">
+        <h2 class="card__title">Number of people</h2>
+        <div class="field">
+          <label class="field__label" for="seats">People <span class="req">Required</span></label>
+          <div class="seats">
+            <select class="select" id="seats" name="seats" aria-describedby="seats-hint seats-error">
+              <option value="1">1 person</option>
+              <option value="2" selected>2 people</option>
+              <option value="3">3 people</option>
+              <option value="4">4 people</option>
+              <option value="5">5 people</option>
+              <option value="6">6 people</option>
+            </select>
+            <p class="total" aria-live="polite">
+              <small>Total (tax incl.)</small>
+              <strong id="total-price">¥3,000</strong>
+            </p>
+          </div>
+          <p class="field__hint" id="seats-hint">Up to 6 people per booking. For 7 or more, please contact us by LINE or email.</p>
+          <p class="field__error" id="seats-error"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card__title">Your details</h2>
+
+        <div class="field">
+          <label class="field__label" for="name">Full name <span class="req">Required</span></label>
+          <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="e.g. Emma Wilson" maxlength="50" aria-describedby="name-hint name-error">
+          <p class="field__hint" id="name-hint">Please write your name in the Latin alphabet.</p>
+          <p class="field__error" id="name-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email">Email <span class="req">Required</span></label>
+          <input class="input" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="e.g. emma@example.com" maxlength="254" aria-describedby="email-hint email-error">
+          <p class="field__hint" id="email-hint">We'll send your confirmation here (in English).</p>
+          <p class="field__error" id="email-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email2">Confirm email <span class="req">Required</span></label>
+          <input class="input" id="email2" name="email2" type="email" inputmode="email" autocomplete="off" placeholder="Enter your email again" maxlength="254" aria-describedby="email2-error">
+          <p class="field__error" id="email2-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="tel">Phone <span class="req">Required</span></label>
+          <input class="input" id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. +44 7700 900123" maxlength="20" aria-describedby="tel-hint tel-error">
+          <p class="field__hint" id="tel-hint">Overseas numbers are fine. Please include the country code (e.g. +1, +44). We'll only call if we need to reach you, for example if the event is postponed.</p>
+          <p class="field__error" id="tel-error"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="note">Questions or requests <span class="opt">Optional</span></label>
+          <textarea class="textarea" id="note" name="note" maxlength="500" placeholder="e.g. We're coming with a small child. Is it OK to bring a stroller?" aria-describedby="note-error"></textarea>
+          <p class="field__error" id="note-error"></p>
+        </div>
+
+        <!-- 迷惑送信対策：人には見えない欄 -->
+        <div class="hp" aria-hidden="true">
+          <label for="website">Website</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card__title">Please check</h2>
+        <ul class="policy">
+          <li>The price is ¥1,500 per person (tax included). Seats are limited and offered first come, first served.</li>
+          <li>Please pay on the day at the seating reception (cash or e-money).</li>
+          <li>Cancellation is free until 17:00 (Japan time) the day before. Reply to the confirmation email or contact us on LINE. After 17:00 there is still no fee, as you pay on the day, but please be sure to let us know.</li>
+          <li>The event goes ahead in light rain. In severe weather it may be postponed to the next day (Sunday), same time, and your reservation will move to the new date. If the new date is also cancelled, your reservation is cancelled and nothing is charged. Updates are posted on our official LINE account on the day.</li>
+          <li>The personal information you enter (name, email, phone number and questions) is used only to handle your booking and contact you about this event (<a href="privacy.html">Privacy policy</a>).</li>
+          <li>In case of any discrepancy, the Japanese version prevails.</li>
+        </ul>
+        <div class="field">
+          <label class="check" for="agree">
+            <input id="agree" name="agree" type="checkbox" aria-describedby="agree-error">
+            <span>I agree to the above <span class="req">Required</span></span>
+          </label>
+          <p class="field__error" id="agree-error"></p>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn--seat" type="submit" id="to-confirm">Review my booking</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============ STEP 2 ============ -->
+  <section id="step-confirm" aria-labelledby="confirm-title" hidden>
+    <div class="card">
+      <h2 class="card__title" id="confirm-title" tabindex="-1">Please confirm your booking</h2>
+      <dl class="confirm-list" id="confirm-list"></dl>
+      <p class="confirm-total"><span>Total (tax incl.)</span><strong id="confirm-total"></strong></p>
+    </div>
+
+    <div class="alert" id="send-error" tabindex="-1" role="alert" hidden></div>
+
+    <div class="btn-row btn-row--2">
+      <button class="btn btn--ghost" type="button" id="back-to-input">Edit</button>
+      <button class="btn btn--seat" type="button" id="submit-btn">
+        <span class="btn__label">Reserve my seats</span>
+      </button>
+    </div>
+    <p class="btn-note">Free cancellation until 17:00 the day before · First come, first served</p>
+  </section>
+
+  <!-- ============ STEP 3 ============ -->
+  <section id="step-done" aria-labelledby="done-title" hidden>
+    <div class="card done">
+      <img class="done__tomorin" src="../images/tomorin-smile.webp" width="337" height="480" alt="">
+      <h2 id="done-title" tabindex="-1">Thank you for booking!<br>See you on the night~</h2>
+      <p class="done__id">Reservation No.<strong id="done-id"></strong></p>
+      <p>We've sent a confirmation email to <span id="done-email"></span>.</p>
+      <p class="field__hint">If you can't find it, please check your spam folder.</p>
+
+      <div class="next-stay card">
+        <h3 class="card__title">Why not stay the night?</h3>
+        <p class="field__hint next-stay__text">There are only a few inns in town. Tell us which one you like, and we'll let you know about rooms and plans. English is OK, by LINE or email (<a href="mailto:info@toomachi-kanko.jp">info@toomachi-kanko.jp</a>).</p>
+        <a class="btn btn--line" data-line href="#">
+          <svg width="22" height="22" aria-hidden="true"><use href="#icon-line"/></svg>
+          Ask about stays on LINE
+        </a>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="./">Back to top</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Toomachi Tourism Association (fictional) | Contact: <a href="mailto:info@toomachi-kanko.jp">info@toomachi-kanko.jp</a> (English OK) | Weekdays 9:00–17:00 (also weekends during the summer event period)</p>
+  <p class="footer-links"><a href="privacy.html">Privacy policy</a></p>
+  <p class="fiction-note">In case of any discrepancy, the Japanese version prevails. This is a fictional page made as a learning project. Bookings are not actually processed.</p>
+</footer>
+
+</body>
+</html>
